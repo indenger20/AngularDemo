@@ -1,26 +1,43 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { PostsComponent } from './posts/posts.component';
-import { UsersComponent } from './users/users.component';
-import { DetailsComponent } from './details/details.component';
+import { routing } from './app-routing.module';
+
+import { AlertComponent } from './_directives';
+import { AuthGuard } from './_guards';
+import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { AlertService, AuthenticationService, UserService } from './_services';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SidebarComponent,
-    PostsComponent,
-    UsersComponent,
-    DetailsComponent
-  ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    routing
   ],
-  providers: [],
+  declarations: [
+    AppComponent,
+    AlertComponent,
+    HomeComponent,
+    LoginComponent,
+    RegisterComponent,
+  ],
+  providers: [
+    AuthGuard,
+    AlertService,
+    AuthenticationService,
+    UserService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
