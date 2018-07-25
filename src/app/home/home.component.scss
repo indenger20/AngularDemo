@@ -1,0 +1,14 @@
+.posts-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 -15px;
+    display: flex;
+    flex-wrap: wrap;
+
+    &__item {
+        display: block;
+        width: 25%;
+        padding: 0 15px 15px;
+    }
+
+}

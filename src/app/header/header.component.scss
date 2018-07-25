@@ -1,0 +1,12 @@
+.navbar-nav {
+    flex-direction: row;
+    li {
+        padding: 0 25px;
+    }
+}
+
+.navbar {
+    .logout {
+        color: rgba(255, 255, 255, 0.5);
+    }
+}

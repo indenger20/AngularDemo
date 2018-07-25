@@ -1,35 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { first } from 'rxjs/operators';
 
-import { User } from '../_models';
-import { UserService } from '../_services';
+import { Post } from '../_models';
+import { PostService } from '../_services';
+import { PostComponent } from '../post/post.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+@NgModule({
+  declarations: [
+    PostComponent,
+  ],
+})
 export class HomeComponent implements OnInit {
-  currentUser: User;
-  users: User[] = [];
+  currentPost: Post;
+  posts: Post[] = [];
 
-  constructor(private userService: UserService) {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  constructor(private postService: PostService) {
+
   }
 
   ngOnInit() {
-    this.loadAllUsers();
+    this.loadAllPosts();
   }
 
-  deleteUser(id: number) {
-    this.userService.delete(id).pipe(first()).subscribe(() => {
-      this.loadAllUsers();
-    });
-  }
-
-  private loadAllUsers() {
-    this.userService.getAll().pipe(first()).subscribe(users => {
-      this.users = users;
+  private loadAllPosts() {
+    this.postService.getAll().pipe(first()).subscribe(posts => {
+      this.posts = posts;
     });
   }
 }

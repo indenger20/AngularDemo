@@ -4,7 +4,7 @@ const config = require('../config/config');
 const UserServices = require('../services/UserService');
 const checkAuth = require('../middleware/auth');
 
-router.post('/singin', async (req, res, next) => {
+router.post('/authenticate', async (req, res, next) => {
   const { password, username } = req.body;
   try {
     const user = await UserServices.authenticate(username, password);
@@ -23,7 +23,6 @@ router.post('/singin', async (req, res, next) => {
       token,
       username: user.username,
       id: user.id,
-      group: user.group,
     });
   } catch (err) {
     return res.status(500).json({
@@ -49,6 +48,45 @@ router.get('/login', checkAuth, (req, res, next) => {
       error
     })
   })
+
+});
+
+router.post('/registration', async (req, res, next) => {
+  const data = req.body;
+  try {
+    const user = await UserServices.registration(data);
+    const token = jwt.sign({
+      username: user.username,
+      id: user.id,
+    },
+      config.app.secretkey,
+      {
+        expiresIn: "1h"
+      }
+    );
+    return res.status(200).json({
+      message: 'Auth successful',
+      token,
+      username: user.username,
+      id: user.id,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      err
+    })
+  }
+
+});
+
+router.get('', checkAuth, async (req, res, next) => {
+  try {
+    const users = await UserServices.getAllUsers();
+    return res.status(200).json(users);
+  } catch (err) {
+    return res.status(500).json({
+      error
+    })
+  }
 
 })
 

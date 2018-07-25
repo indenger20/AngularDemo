@@ -1,0 +1,28 @@
+<div class="editor" *ngIf="!isPriview">
+  <h2 class="content-title">{{title}}</h2>
+  <form [formGroup]="editorForm" class="editorForm">
+    <div class="form-group">
+      <label for="postTitle">Type the title of post</label>
+      <input maxlength="50" placeholder="Title" id="postTitle" type="text" formControlName="postTitle" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.postTitle.errors }">
+    </div>
+    <div class="form-image" *ngIf="imageUrl">
+      <img [src]="imageUrl" class="rounded mb-3">
+    </div>
+    <div class="form-group custom-file">
+      <label for="postImage" class="custom-file-label form-control" [ngClass]="{ 'is-invalid': submitted && f.postImage.errors }">{{imageName}}</label>
+      <input id="postImage" type="file" class="custom-file-input" (change)="onFileChange($event)" [ngClass]="{ 'is-invalid': submitted && f.postImage.errors }">
+    </div>
+    <div class="form-group">
+      <label for="postDescription">Example textarea</label>
+      <textarea maxlength="1500" class="form-control" formControlName="postDescription" id="postDescription" rows="3" [ngClass]="{ 'is-invalid': submitted && f.postDescription.errors }"></textarea>
+    </div>
+  </form>
+  <button class="preview-btn btn btn-secondary" (click)="handlePreview($event, true)">Preview</button>
+</div>
+<div class="preview" *ngIf="isPriview">
+  <app-post [postData]="postData"></app-post>
+  <div class="buttons">
+    <button class="btn btn-warning" (click)="handlePreview($event, false)">Edit</button>
+    <button class="btn btn-success" (click)="handleSave($event)">Create new post</button>
+  </div>
+</div>
