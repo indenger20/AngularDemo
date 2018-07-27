@@ -1,7 +1,7 @@
 <div class="post card">
   <img class="post__img" src="{{postData.imagePath}}" alt="">
   <div class="card-body">
-    <h3 class="post__title">{{postData.title}}</h3>
-    <p class="post__text">{{postData.description}}</p>
+    <a class="post__title" routerLink="/detail/{{postData.id}}" appTextCut="2">{{postData.title}}</a>
+    <p class="post__text" appTextCut="3">{{postData.description}}</p>
   </div>
 </div>

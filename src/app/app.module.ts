@@ -8,7 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { routing } from './app-routing.module';
 
-import { AlertComponent } from './_directives';
+import { AlertComponent } from './alert/alert.component';
 import { AuthGuard } from './_guards';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AlertService, AuthenticationService, UserService, PostService } from './_services';
@@ -18,6 +18,8 @@ import { RegisterComponent } from './register/register.component';
 import { HeaderComponent } from './header/header.component';
 import { EditorComponent } from './editor/editor.component';
 import { PostComponent } from './post/post.component';
+import { TextCutDirective } from './_directives/text-cut.directive';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   imports: [
@@ -36,6 +38,8 @@ import { PostComponent } from './post/post.component';
     HeaderComponent,
     EditorComponent,
     PostComponent,
+    TextCutDirective,
+    DetailComponent,
   ],
   providers: [
     AuthGuard,

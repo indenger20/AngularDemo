@@ -22,5 +22,14 @@ module.exports = {
         } catch (err) {
             console.log(err);
         }
+    },
+
+    async getPostBuId(post_id) {
+        try {
+            const post = await client.then(conn => conn.query(`SELECT * from posts WHERE id = ${post_id}`));
+            return post.length ? post[0] : null;
+        } catch (err) {
+            console.log(err);
+        }
     }
 }

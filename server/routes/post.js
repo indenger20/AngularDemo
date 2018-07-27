@@ -30,4 +30,16 @@ router.get('', checkAuth, async (req, res, next) => {
     }
 });
 
+router.get('/:id', checkAuth, async (req, res, next) => {
+    try {
+        const post_id = req.params.id;
+        const post = await PostService.getPostBuId(post_id);
+        return res.status(200).json(post);
+    } catch (error) {
+        return res.status(500).json({
+            error
+        })
+    }
+});
+
 module.exports = router;

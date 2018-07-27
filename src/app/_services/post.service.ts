@@ -25,6 +25,10 @@ export class PostService {
     //     return this.http.delete(`${environment.apiUrl}/post/${id}`);
     // }
 
+    getDetailPost(id) {
+        return this.http.get(`${environment.apiUrl}/post/${id}`);
+    }
+
     create(post: Post) {
         return this.http.post(`${environment.apiUrl}/post/`, post);
     }
