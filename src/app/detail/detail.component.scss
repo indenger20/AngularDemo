@@ -1,0 +1,23 @@
+.detail {
+
+    &__title {
+        display: block;
+        padding-bottom: 25px;
+        margin: 0;
+    }
+
+    &__cont {
+
+    }
+    &__img {
+        display: block;
+        max-width: 100%;
+        width: 40%;
+        float: left;
+        margin: 0 15px 20px 0;
+    }
+    &__text {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+}

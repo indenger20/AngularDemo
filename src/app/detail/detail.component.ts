@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PostService } from '../_services/post.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -11,19 +11,25 @@ import { Post } from '../_models';
 })
 
 export class DetailComponent implements OnInit {
+  @Input() postData?: any;
   post: any;
 
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,
   ) {
-    const id = this.route.snapshot.params.id;
-    this.postService.getDetailPost(id).pipe(first()).subscribe(post => {
-      this.post = post;
-    });
+
   }
 
   ngOnInit() {
+    const id = this.route.snapshot.params.id;
+    if (!this.postData) {
+      this.postService.getDetailPost(id).pipe(first()).subscribe(post => {
+        this.post = post;
+      });
+    } else {
+      this.post = this.postData;
+    }
   }
 
 }

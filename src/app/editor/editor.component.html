@@ -20,7 +20,7 @@
   <button class="preview-btn btn btn-secondary" (click)="handlePreview($event, true)">Preview</button>
 </div>
 <div class="preview" *ngIf="isPriview">
-  <app-post [postData]="postData"></app-post>
+  <app-detail [postData]="postData"></app-detail>
   <div class="buttons">
     <button class="btn btn-warning" (click)="handlePreview($event, false)">Edit</button>
     <button class="btn btn-success" (click)="handleSave($event)">Create new post</button>

@@ -1,7 +1,7 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PostComponent } from '../post/post.component';
+import { DetailComponent } from '../detail/detail.component';
 import { Post } from '../_models/';
 import { PostService } from '../_services/post.service';
 
@@ -12,7 +12,7 @@ import { PostService } from '../_services/post.service';
 })
 @NgModule({
   declarations: [
-    PostComponent,
+    DetailComponent,
   ],
 })
 export class EditorComponent implements OnInit {
