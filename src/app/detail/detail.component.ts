@@ -24,7 +24,7 @@ export class DetailComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.params.id;
     if (!this.postData) {
-      this.postService.getDetailPost(id).pipe(first()).subscribe(post => {
+      this.postService.getPostById(id).pipe(first()).subscribe(post => {
         this.post = post;
       });
     } else {

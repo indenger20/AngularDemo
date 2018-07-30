@@ -16,6 +16,14 @@ CREATE TABLE if not exists posts (
   imageName varchar(100) NOT NULL,
   imagePath text(32768) NOT NULL,
   `description` text(32768) NOT NULL,
-  `user_id` int(16),
+  `descriptionFull` text(32768) NOT NULL,
+  `user_id` int(16) NOT NULL,
   createdAt date
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE if not exists popularity (
+  id int(16) AUTO_INCREMENT PRIMARY KEY,
+  `type` int(16)  NOT NULL,
+  `user_id` int(16) NOT NULL,
+  `post_id` int(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

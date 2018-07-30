@@ -12,6 +12,7 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'newPost', component: EditorComponent, canActivate: [AuthGuard] },
+    { path: 'editPost/:id', component: EditorComponent, canActivate: [AuthGuard] },
     { path: 'detail/:id', component: DetailComponent, canActivate: [AuthGuard] },
 
     // otherwise redirect to home

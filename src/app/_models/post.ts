@@ -4,4 +4,5 @@ export class Post {
     imagePath: string;
     imageName: string;
     description: string;
+    descriptionFull: string;
 }

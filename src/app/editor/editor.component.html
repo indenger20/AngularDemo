@@ -5,24 +5,30 @@
       <label for="postTitle">Type the title of post</label>
       <input maxlength="50" placeholder="Title" id="postTitle" type="text" formControlName="postTitle" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.postTitle.errors }">
     </div>
-    <div class="form-image" *ngIf="imageUrl">
-      <img [src]="imageUrl" class="rounded mb-3">
+    <div class="form-image" *ngIf="imagePath">
+      <img [src]="imagePath" class="rounded mb-3">
     </div>
     <div class="form-group custom-file">
       <label for="postImage" class="custom-file-label form-control" [ngClass]="{ 'is-invalid': submitted && f.postImage.errors }">{{imageName}}</label>
       <input id="postImage" type="file" class="custom-file-input" (change)="onFileChange($event)" [ngClass]="{ 'is-invalid': submitted && f.postImage.errors }">
     </div>
     <div class="form-group">
-      <label for="postDescription">Example textarea</label>
-      <textarea maxlength="1500" class="form-control" formControlName="postDescription" id="postDescription" rows="3" [ngClass]="{ 'is-invalid': submitted && f.postDescription.errors }"></textarea>
+      <label for="postDescription">Create small description ({{maxDescLengthCount}} symbols)</label>
+      <textarea maxlength="{{maxDescLength}}" class="form-control" formControlName="postDescription" id="postDescription" rows="3"
+        [ngClass]="{ 'is-invalid': submitted && f.postDescription.errors }"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="postDescriptionFull">Create full description of post</label>
+      <div id="postDescriptionFull" [froalaEditor] [(froalaModel)]="editorContent"></div>
     </div>
   </form>
   <button class="preview-btn btn btn-secondary" (click)="handlePreview($event, true)">Preview</button>
 </div>
+
 <div class="preview" *ngIf="isPriview">
   <app-detail [postData]="postData"></app-detail>
   <div class="buttons">
     <button class="btn btn-warning" (click)="handlePreview($event, false)">Edit</button>
-    <button class="btn btn-success" (click)="handleSave($event)">Create new post</button>
+    <button class="btn btn-success" (click)="handleSave($event)">{{componentType === 'create' ? 'Create new post' : 'Update Post'}}</button>
   </div>
 </div>

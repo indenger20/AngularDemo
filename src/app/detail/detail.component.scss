@@ -9,12 +9,18 @@
     &__cont {
 
     }
-    &__img {
+    &__image {
         display: block;
         max-width: 100%;
-        width: 40%;
+        width: 30%;
         float: left;
         margin: 0 15px 20px 0;
+    }
+    &__img {
+        display: block;
+    }
+    &__cont {
+        
     }
     &__text {
         font-size: 16px;

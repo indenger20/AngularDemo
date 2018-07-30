@@ -1,7 +1,8 @@
 <div class="post card">
+  <span class="post__edit material-icons edit" *ngIf="postData.editable" routerLink="/editPost/{{postData.id}}">edit</span>
   <img class="post__img" src="{{postData.imagePath}}" alt="">
   <div class="card-body">
     <a class="post__title" routerLink="/detail/{{postData.id}}" appTextCut="2">{{postData.title}}</a>
-    <p class="post__text" appTextCut="3">{{postData.description}}</p>
+    <p class="post__text">{{postData.description}}</p>
   </div>
 </div>

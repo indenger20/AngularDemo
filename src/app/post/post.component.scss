@@ -1,5 +1,6 @@
 .post {
     height: 100%;
+    position: relative;
 
     .card-body {
         overflow: hidden;
@@ -35,11 +36,21 @@
         display: block;
         font-size: 14px;
         line-height: 1.5;
-        height: 87px;
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 4;
-        -webkit-box-orient: vertical;  
+        white-space: pre-wrap;
+    }
+
+    &__edit {
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: 24px;
+        cursor: pointer;
+        color: #007bff;
+        transition: all .3s;
+        &:hover {
+            color: #dc5b5b;
+            transition: all .3s;
+        }
     }
 
 }

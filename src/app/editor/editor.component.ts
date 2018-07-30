@@ -1,9 +1,11 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DetailComponent } from '../detail/detail.component';
 import { Post } from '../_models/';
 import { PostService } from '../_services/post.service';
+
 
 @Component({
   selector: 'app-editor',
@@ -20,37 +22,61 @@ export class EditorComponent implements OnInit {
   pagePath: string;
   componentType: string;
   imagePath: string;
-  imageUrl: string;
   imageName: string;
   editorForm: FormGroup;
   postData: Post;
   isPriview: boolean;
   submitted: boolean;
-
+  maxDescLength: number;
+  maxDescLengthCount: number;
+  editorContent: string;
+  postId?: number;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private postService: PostService,
     private router: Router,
-  ) { }
+  ) {
+    this.maxDescLength = 100;
+    this.maxDescLengthCount = this.maxDescLength;
+    this.editorContent = '';
+    this.imageName = 'Choose the image for post';
 
-  ngOnInit() {
-    this.pagePath = this.route.snapshot.routeConfig.path;
+    this.pagePath = this.route.snapshot.routeConfig.path.split('/')[0];
     if (this.pagePath === 'newPost') {
       this.componentType = 'create';
       this.title = 'Create New Post';
     } else if (this.pagePath === 'editPost') {
       this.componentType = 'edit';
       this.title = 'Edit This Post';
+      this.postService.getPostById(Number(this.route.snapshot.params.id)).pipe(first()).subscribe((post: Post) => {
+        this.editorForm.patchValue({
+          postImage: post.imagePath || '',
+          postTitle: post.title || '',
+          postDescription: post.description || ''
+        });
+        this.imagePath = post.imagePath;
+        this.imageName = post.imageName;
+        this.editorContent = post.descriptionFull;
+        this.postId = post.id;
+        this.updatePostData();
+      });
     }
+  }
 
-    this.imageName = 'Choose the image for post';
-
+  ngOnInit() {
     this.editorForm = this.formBuilder.group({
       postTitle: ['', Validators.required],
-      postImage: [null, Validators.required],
+      postImage: ['', Validators.required],
       postDescription: ['', Validators.required],
+    });
+    this.onChanges();
+  }
+
+  onChanges(): void {
+    this.editorForm.valueChanges.subscribe(val => {
+      this.maxDescLengthCount = this.maxDescLength - val.postDescription.length;
     });
   }
 
@@ -62,6 +88,7 @@ export class EditorComponent implements OnInit {
       imagePath: this.imagePath,
       imageName: this.imageName,
       description: this.f.postDescription.value,
+      descriptionFull: this.editorContent,
     };
     this.postData = new Post();
     for (const key in postData) {
@@ -75,7 +102,6 @@ export class EditorComponent implements OnInit {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
-        this.imageUrl = event.target.result;
         this.imageName = e.target.files[0].name;
         this.imagePath = reader.result;
         this.editorForm.patchValue({
@@ -85,11 +111,10 @@ export class EditorComponent implements OnInit {
       reader.readAsDataURL(e.target.files[0]);
 
     } else {
-      this.imageUrl = null;
       this.imagePath = null;
       this.imageName = 'Choose the image for post';
       this.editorForm.patchValue({
-        file: null
+        postImage: null
       });
     }
   }
@@ -106,19 +131,29 @@ export class EditorComponent implements OnInit {
     e.preventDefault();
     this.updatePostData();
     this.isPriview = flag;
-
   }
 
   handleSave(e) {
     e.preventDefault();
     this.updatePostData();
-    this.postService.create(this.postData).subscribe(
-      data => {
-        this.router.navigate(['/home']);
-      },
-      error => {
+    if (this.componentType === 'create') {
+      this.postService.create(this.postData).subscribe(
+        data => {
+          this.router.navigate(['/home']);
+        },
+        error => {
 
-      });
+        });
+    } else if (this.componentType === 'edit') {
+      this.postData.id = this.postId;
+      this.postService.update(this.postData).subscribe(
+        data => {
+          this.router.navigate(['/home']);
+        },
+        error => {
+
+        });
+    }
   }
 
 }

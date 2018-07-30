@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 import { AppComponent } from './app.component';
 import { routing } from './app-routing.module';
@@ -18,7 +19,6 @@ import { RegisterComponent } from './register/register.component';
 import { HeaderComponent } from './header/header.component';
 import { EditorComponent } from './editor/editor.component';
 import { PostComponent } from './post/post.component';
-import { TextCutDirective } from './_directives/text-cut.directive';
 import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
@@ -27,7 +27,9 @@ import { DetailComponent } from './detail/detail.component';
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
-    routing
+    routing,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -38,7 +40,6 @@ import { DetailComponent } from './detail/detail.component';
     HeaderComponent,
     EditorComponent,
     PostComponent,
-    TextCutDirective,
     DetailComponent,
   ],
   providers: [

@@ -17,15 +17,15 @@ export class PostService {
     //     return this.http.get(`${environment.apiUrl}/post/${id}`);
     // }
 
-    // update(post: Post) {
-    //     return this.http.put(`${environment.apiUrl}/post/${post.id}`, post);
-    // }
+    update(post: Post) {
+        return this.http.put(`${environment.apiUrl}/post/`, post);
+    }
 
     // delete(id: number) {
     //     return this.http.delete(`${environment.apiUrl}/post/${id}`);
     // }
 
-    getDetailPost(id) {
+    getPostById(id) {
         return this.http.get(`${environment.apiUrl}/post/${id}`);
     }
 
