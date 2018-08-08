@@ -1,0 +1,7 @@
+<div class="comment">
+  <button *ngIf="!showTextarea" class="comment__btn btn" (click)="handleOpenArea()">Add comment</button>
+  <div *ngIf="showTextarea">
+      <div class="comment__form" [froalaEditor] [(froalaModel)]="commentData"></div>
+      <button class="btn" (click)="handleSave()">Send Comment</button>
+  </div>
+</div>

@@ -27,3 +27,11 @@ CREATE TABLE if not exists popularity (
   `user_id` int(16) NOT NULL,
   `post_id` int(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE if not exists comments (
+  id int(16) AUTO_INCREMENT PRIMARY KEY,
+  `description` text(32768) NOT NULL,
+  `user_id` int(16) NOT NULL,
+  `post_id` int(16) NOT null,
+  createdAt date
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

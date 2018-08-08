@@ -12,7 +12,7 @@ import { routing } from './app-routing.module';
 import { AlertComponent } from './alert/alert.component';
 import { AuthGuard } from './_guards';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { AlertService, AuthenticationService, UserService, PostService } from './_services';
+import { AlertService, AuthenticationService, UserService, PostService, CommentService } from './_services';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -20,6 +20,7 @@ import { HeaderComponent } from './header/header.component';
 import { EditorComponent } from './editor/editor.component';
 import { PostComponent } from './post/post.component';
 import { DetailComponent } from './detail/detail.component';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { DetailComponent } from './detail/detail.component';
     EditorComponent,
     PostComponent,
     DetailComponent,
+    CommentComponent,
   ],
   providers: [
     AuthGuard,
@@ -48,6 +50,7 @@ import { DetailComponent } from './detail/detail.component';
     AuthenticationService,
     UserService,
     PostService,
+    CommentService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],

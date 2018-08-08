@@ -1,8 +1,9 @@
 const client = require('../db/client');
 
+
 module.exports = {
 
-    updatePopularity(type, user_id, post_id) {
+    async updatePopularity(type, user_id, post_id) {
         await client.then(conn => conn.query(`
             INSERT INTO popularity (type, user_id, post_id)
             VALUES ('${type}', '${user_id}', '${post_id}')

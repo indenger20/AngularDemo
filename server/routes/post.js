@@ -56,4 +56,17 @@ router.get('/:id', checkAuth, async (req, res, next) => {
     }
 });
 
+router.post('/popularity/', checkAuth, async (req, res, next) => {
+    try {
+        const postData = req.body;
+        const user_id = req.userDate.id;
+        const post = await PostService.getPostBuId(post_id, user_id);
+        return res.status(200).json(post);
+    } catch (error) {
+        return res.status(500).json({
+            error
+        })
+    }
+});
+
 module.exports = router;
